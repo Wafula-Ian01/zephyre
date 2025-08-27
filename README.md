@@ -1,6 +1,6 @@
 # Zephyre Multiseat
 
-A Windows multiseat prototype in Golang for concurrent user access in educational/humanitarian settings.
+A Windows multiseat prototype in Golang for concurrent user access in limited settings.
 
 ## Setup
 1. Install Golang.
@@ -10,7 +10,7 @@ A Windows multiseat prototype in Golang for concurrent user access in educationa
 5. For concurrency: Install RDP Wrapper (manual) for multi-RDP sessions.
 6. Logs in zephyre.log.
 
-## Features
+## Planned Features
 - Scan hardware.
 - Assign devices to seats via GUI.
 - Create users for seats.
