@@ -12,9 +12,9 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"github.com/user/zephyre/internal/devices"
-	"github.com/user/zephyre/internal/seats"
-	"github.com/user/zephyre/internal/users"
+	"github.com/zephyre/internal/devices"
+	"github.com/zephyre/internal/seats"
+	"github.com/zephyre/internal/users"
 )
 
 const (

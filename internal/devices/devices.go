@@ -6,6 +6,7 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+	"syscall"
 	"unsafe"
 
 	"github.com/gonutz/w32/v2"
@@ -27,15 +28,16 @@ func ScanDevices(devices map[string][]string, logger *log.Logger) error {
 
 func scanMonitors(devices map[string][]string) error {
 	var monitors []string
-	callback := func(hmon w32.HMONITOR, hdc w32.HDC, rect *w32.RECT, lparam w32.LPARAM) w32.BOOL {
+	callback := func(hmon w32.HMONITOR, hdc w32.HDC, rect *w32.RECT, lparam w32.LPARAM) uintptr {
 		var info w32.MONITORINFO
 		info.CbSize = uint32(unsafe.Sizeof(info))
 		if w32.GetMonitorInfo(hmon, &info) {
 			monitors = append(monitors, fmt.Sprintf("Monitor at (%d,%d)-(%d,%d)", info.RcMonitor.Left, info.RcMonitor.Top, info.RcMonitor.Right, info.RcMonitor.Bottom))
 		}
-		return 1
+		return 1 // Continue enumeration
 	}
-	w32.EnumDisplayMonitors(0, nil, w32.MONITORENUMPROC(callback), 0)
+	cbPtr := syscall.NewCallback(callback)
+	w32.EnumDisplayMonitors(0, nil, cbPtr, 0)
 	devices["monitors"] = monitors
 	return nil
 }
